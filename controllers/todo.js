@@ -19,6 +19,9 @@ const createTodo = async (req, res) => {
     if (!title || !deadline) {
       throw new BadRequestError("Please input all needed information.");
     }
+    if (title.length > 20) {
+      throw new BadRequestError("Title cannot be more than 20 characters");
+    }
     const date = new Date(Date.now());
     const milliDeadline = new Date(deadline).getTime();
 
