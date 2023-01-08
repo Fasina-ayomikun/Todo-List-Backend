@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://todo-list-frontend-five.vercel.app",
+    origin: process.env.FRONTEND_LINK,
   })
 );
 // Add Routes
