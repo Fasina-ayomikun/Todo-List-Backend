@@ -15,7 +15,10 @@ const UploadImage = async (req, res) => {
     if (!data) {
       throw new BadRequestError("Please upload a file");
     }
-    const response = await cloudinary.uploader.upload(data);
+    const response = await cloudinary.uploader.upload(data, {
+      use_filename: true,
+      secure: true,
+    });
 
     res.status(200).json({ url: response.url, success: true });
   } catch (error) {
