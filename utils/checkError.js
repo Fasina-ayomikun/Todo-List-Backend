@@ -1,4 +1,5 @@
 const checkError = (error) => {
+  console.log(error);
   let status = error.status || 500;
   let msg = error.message;
   if (error.name === "CastError") {

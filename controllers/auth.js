@@ -11,7 +11,7 @@ const checkError = require("../utils/checkError");
 
 const register = async (req, res) => {
   try {
-    let { email, firstName, lastName, password, password2 } = req.body;
+    let { email, image, firstName, lastName, password, password2 } = req.body;
     let username = firstName + " " + lastName;
     // check for empty input
     if (!email || !firstName || !lastName || !password || !password2) {
@@ -40,9 +40,17 @@ const register = async (req, res) => {
     const salt = await bcryptjs.genSalt(10);
     const hash = await bcryptjs.hash(password, salt);
     // Create New User
-    const newUser = await User.create({ username, email, password: hash });
-
-    res.status(201).json({ msg: "User created successfully", success: true });
+    const newUser = await User.create({
+      username,
+      email,
+      password: hash,
+      profile: image,
+    });
+    console.log(newUser);
+    res.status(201).json({
+      msg: "User created successfully",
+      success: true,
+    });
   } catch (error) {
     const { status, msg } = checkError(error);
     res.status(status).json({ msg, success: false });
@@ -65,12 +73,15 @@ const login = async (req, res) => {
       userId: user._id,
       username: user.username,
       email,
+      profile: user.profile,
     });
     res.status(200).json({
       msg: "User Successfully Logged In",
       username: user.username,
       email,
+      _id: user._id,
       token,
+      profile: user.profile,
       success: true,
     });
   } catch (error) {

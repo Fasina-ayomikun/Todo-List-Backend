@@ -11,8 +11,10 @@ const TodoSchema = new mongoose.Schema({
     default: "No description.",
   },
   completed: {
-    type: Boolean,
-    default: false,
+    type: Array,
+  },
+  participants: {
+    type: Array,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -21,6 +23,9 @@ const TodoSchema = new mongoose.Schema({
   deadline: {
     type: Date,
     required: [true, "Please choose a deadline"],
+  },
+  tags: {
+    type: Array,
   },
   createdAt: {
     type: Date,

@@ -8,14 +8,20 @@ const cors = require("cors");
 const app = express();
 
 app.use(express.json());
+console.log(`${process.env.FRONTEND_LINK}`);
 app.use(
   cors({
-    origin: "https://todo-list-frontend-five.vercel.app",
+    origin: process.env.FRONTEND_LINK,
   })
 );
 // Add Routes
 app.use("/users", require("./routes/auth"));
 app.use("/tasks", require("./routes/todo"));
+app.use("/files", require("./routes/files"));
+app.use("/comment", require("./routes/comment"));
+app.use("/notification", require("./routes/notification"));
+app.use("/all-users", require("./routes/users"));
+
 app.get("/", (req, res) => res.send("todo list"));
 // Add Middleware
 app.use(notFoundMiddleware);

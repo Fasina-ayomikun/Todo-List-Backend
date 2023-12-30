@@ -7,6 +7,11 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     required: [true, "Please provide a username"],
   },
+  profile: {
+    type: String,
+    default:
+      "http://res.cloudinary.com/dn4lenrqs/image/upload/v1703536455/wc51gd2cpugjupxazas4.jpg",
+  },
   email: {
     type: String,
     required: [true, "Please provide an email"],
