@@ -10,7 +10,12 @@ const sendMail = require("../utils/sendMail");
 const getAllUserTodos = async (req, res) => {
   try {
     const { sort } = req.query;
-    const tasks = await Todo.find({ user: req.user.userId }).sort(sort);
+    const tasks = await Todo.find({ user: req.user.userId })
+      .populate({
+        path: "user",
+        select: "username email _id profile",
+      })
+      .sort(sort);
     res.status(200).json({ tasks, success: true, nbHits: tasks.length });
   } catch (error) {
     const { status, msg } = checkError(error);
@@ -26,7 +31,13 @@ const getAllTodos = async (req, res) => {
 
     const tasks = await Todo.find({
       $or: [{ user: mongoose.Types.ObjectId(id) }, { "participants._id": id }],
-    }).sort(sort);
+    })
+      .populate({
+        path: "user",
+        select: "username email _id profile",
+      })
+      .sort(sort);
+
     res.status(200).json({ tasks, success: true, nbHits: tasks.length });
   } catch (error) {
     const { status, msg } = checkError(error);
