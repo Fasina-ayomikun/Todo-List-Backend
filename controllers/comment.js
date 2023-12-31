@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const BadRequestError = require("../errors/bad-request");
 const NotFoundError = require("../errors/not-found");
 const Comment = require("../models/Comment");
@@ -25,7 +26,7 @@ const CreateComment = async (req, res) => {
 
     let notificationRecipients = [];
     notificationRecipients.push({
-      userId: creator,
+      userId: mongoose.Types.ObjectId(creator),
       content: "New Comment Added",
       userEmail: userExists.email,
       profile: userExists.profile,

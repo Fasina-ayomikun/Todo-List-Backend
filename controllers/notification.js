@@ -5,6 +5,7 @@ const Todo = require("../models/Todo");
 const User = require("../models/User");
 const checkError = require("../utils/checkError");
 const cron = require("node-cron");
+const mongoose = require("mongoose");
 const sendMail = require("../utils/sendMail");
 const CreateNotification = async (req, res) => {
   try {
@@ -75,7 +76,7 @@ cron.schedule("0 12 * * *", async () => {
     taskDeadline.forEach(async (task) => {
       let notificationRecipients = [];
       notificationRecipients.push({
-        userId: task.user,
+        userId: mongoose.Types.ObjectId(task.user),
         content: "Task deadline approaching",
       });
 

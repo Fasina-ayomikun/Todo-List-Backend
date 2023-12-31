@@ -11,7 +11,7 @@ const checkError = require("../utils/checkError");
 
 const register = async (req, res) => {
   try {
-    let { email, image, firstName, lastName, password, password2 } = req.body;
+    let { email, profile, firstName, lastName, password, password2 } = req.body;
     let username = firstName + " " + lastName;
     // check for empty input
     if (!email || !firstName || !lastName || !password || !password2) {
@@ -44,7 +44,7 @@ const register = async (req, res) => {
       username,
       email,
       password: hash,
-      profile: image,
+      profile,
     });
     console.log(newUser);
     res.status(201).json({

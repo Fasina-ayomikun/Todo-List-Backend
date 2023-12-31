@@ -3,15 +3,10 @@ const checkError = require("../utils/checkError");
 const path = require("path");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-  secure: true,
-});
 
 const UploadImage = async (req, res) => {
   try {
+    console.log(req.files.image);
     const fileImage = req.files.image;
     if (!req.files) {
       throw new BadRequestError("Please provide files");
