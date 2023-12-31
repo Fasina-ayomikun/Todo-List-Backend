@@ -4,7 +4,9 @@ const mongoose = require("mongoose");
 const connect = require("./db/connect");
 const errorHandlingMiddleware = require("./middleware/error-handler");
 const notFoundMiddleware = require("./middleware/not-found");
+const fileUploader = require("express-fileupload");
 const cors = require("cors");
+const cloudinary = require("cloudinary").v2;
 const app = express();
 
 app.use(express.json());
@@ -12,6 +14,12 @@ console.log(`${process.env.FRONTEND_LINK}`);
 app.use(
   cors({
     origin: process.env.FRONTEND_LINK,
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Access-Control-Allow-Origin",
+    ],
+    credentials: true,
   })
 );
 app.use((req, res, next) => {
